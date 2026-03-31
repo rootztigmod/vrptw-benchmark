@@ -1,0 +1,35 @@
+[package]
+name = "vrptw-benchmark"
+version = "0.1.0"
+edition = "2021"
+
+# ─── HOW TO ADD A NEW ALGORITHM ───────────────────────────────────────────────
+# 1. Add a match arm in src/main.rs  dispatch()  (one line)
+# 2. cargo build --release
+# That's it. tig-monorepo is never modified.
+# ──────────────────────────────────────────────────────────────────────────────
+
+[[bin]]
+name = "vrptw-evaluator"
+path = "src/main.rs"
+
+[dependencies]
+anyhow     = "1.0"
+clap       = { version = "4.5", features = ["derive"] }
+serde      = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# These mirror tig-algorithms/Cargo.toml — needed because algo_dispatch.rs
+# includes algorithm source directly via #[path], so all algorithm deps must
+# be present in this crate too.
+ahash  = "0.8.12"
+rand   = { version = "0.8.5", default-features = false, features = ["std_rng", "small_rng"] }
+rayon  = "1.10"
+
+# Read-only path dep into tig-monorepo — nothing in tig-monorepo is modified.
+# Assumes tig-monorepo is cloned alongside this repo in the same parent directory.
+tig-challenges = { path = "../tig-monorepo/tig-challenges", features = ["c002"] }
+
+[profile.release]
+opt-level = 3
+lto       = true
