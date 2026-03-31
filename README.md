@@ -100,14 +100,17 @@ the algorithm changes.
 ## Usage Examples
 
 ```bash
-# Benchmark one group, no OR-Tools (fastest)
+# One group, no OR-Tools (fastest)
 python3 benchmark.py --algo <your_algo> --group C1 --no-ortools
 
-# Full benchmark with OR-Tools comparison (30s per instance)
+# One group with OR-Tools comparison (30s per instance)
 python3 benchmark.py --algo <your_algo> --group C1 --ortools-time 30
 
-# Run all 60 HG instances
-python3 benchmark.py --algo <your_algo>
+# All 60 HG instances, no OR-Tools
+python3 benchmark.py --algo <your_algo> --no-ortools
+
+# Full benchmark — all 60 instances with OR-Tools comparison
+python3 benchmark.py --algo <your_algo> --ortools-time 30
 
 # Compare two algorithms side-by-side
 python3 benchmark.py --compare <algo_a> <algo_b> --group C1
